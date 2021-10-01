@@ -1,32 +1,34 @@
-import React from 'react'
-
-const Hello = (props) => {
-  return (
-    <div>
-      <p>Hello {props.name}, you are {props.age} years old</p>
-    </div>
-  )
-}
-
-const Footer = () => {
-  return (
-    <div>
-      greeting app created by <a href="https://github.com/mluukkai">mluukkai</a>
-    </div>
-  )
-}
+import React, { useState } from 'react'
 
 const App = () => {
-  const name = 'Blake'
-  const age = 27
+  const [ counter, setCounter ] = useState(0)
+
+  const increaseByOne = () => setCounter(counter + 1)
+
+  const setToZero = () => setCounter(0)
 
   return (
-    <>
-      <h1>Greetings</h1>
-      <Hello name="Maya" age={26 + 10} />
-      <Hello name={name} age={age} />
-      <Footer />
-    </>
+    <div>
+      <Display counter={counter}/>
+      <Button 
+        onClick={increaseByOne}
+        text={'plus'}
+      />
+      <Button 
+        onClick={setToZero}
+        text={'zero'}
+      />
+    </div>
+  )
+}
+
+const Display = ({ counter }) => <div>{counter}</div>
+
+const Button = ({ onClick, text }) => {
+  return (
+    <button onClick={onClick}>
+      {text}
+    </button>
   )
 }
 
