@@ -6,6 +6,21 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const TotalClicks = () => {
+    return good + neutral + bad
+  }
+
+  const CalculateAverage = () => {
+    const total = TotalClicks()
+    return (good - bad) / total || 0
+  }
+
+  const CalculatePositivePercent = () => {
+    const total = TotalClicks()
+    const value = (good / total) * 100 || 0
+    return value + '%'
+  }
+
   return (
     <div>
       <h1>give feedback</h1>
@@ -23,16 +38,28 @@ const App = () => {
       />
       <h1>statistics</h1>
       <Stats
-        feedbackType={'good'}
+        statText={'good'}
         value={good}
       />
       <Stats
-        feedbackType={'neutral'}
+        statText={'neutral'}
         value={neutral}
       />
       <Stats
-        feedbackType={'bad'}
+        statText={'bad'}
         value={bad}
+      />
+      <Stats
+        statText={'all'}
+        value={TotalClicks()}
+      />
+      <Stats
+        statText={'average'}
+        value={CalculateAverage()}
+      />
+      <Stats
+        statText={'positive'}
+        value={CalculatePositivePercent()}
       />
     </div>
   );
@@ -44,6 +71,7 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
-const Stats = ({ feedbackType, value }) => <p>{feedbackType} {value}</p>
+const Stats = ({ statText, value }) => <p>{statText} {value}</p>
+
 
 export default App;
