@@ -24,8 +24,14 @@ const App = () => {
     setSelected(getRandomInt(anecdotes.length))
   }
 
+  const getBestAnecdote = () => {
+    let maxIndex = points.indexOf(Math.max(...points))
+    return anecdotes[maxIndex]
+  }
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <br/>
       has {points[selected]} votes
@@ -36,7 +42,10 @@ const App = () => {
       <button onClick={handleRandomClick}>
         next anecdote
       </button>
+      <h1>Anecdote with most votes</h1>
+      {getBestAnecdote()}
     </div>
+    
   )
 }
 
