@@ -2,59 +2,66 @@ import React from 'react'
 
 const App = () => {
   const course = {
+    id: 1,
     name: 'Half Stack application development',
     parts: [
       {
         name: 'Fundamentals of React',
-        exercises: 10
+        exercises: 10,
+        id: 1
       },
       {
         name: 'Using props to pass data',
-        exercises: 7
+        exercises: 7,
+        id: 2
       },
       {
         name: 'State of a component',
-        exercises: 14
+        exercises: 14,
+        id: 3
       }
     ]
   }
 
+  return <Course course={course} />
+}
+
+const Course = ({ course }) => {
   return (
     <div>
-      <Header course={course} />
-      <Content course={course} />
-      <Total course={course} />
+      <Header name={course.name} />
+      <Content parts={course.parts} />
     </div>
   )
 }
 
-const Header = (props) => {
+const Header = ({ name }) => {
   return (
-    <h1>{props.course.name}</h1>
+    <h1>{name}</h1>
   )
 }
 
-const Content = (props) => {
+const Content = ({ parts }) => {
   return (
     <div>
-      <Part part={props.course.parts[0]} />
-      <Part part={props.course.parts[1]} />
-      <Part part={props.course.parts[2]} />
+      {parts.map(part => 
+        <Part key={part.id} name={part.name} exercises={part.exercises} />
+      )}
     </div>
   )
 }
 
-const Total = (props) => {
-  let total = 0
-  props.course.parts.forEach(part => total += part.exercises)
-  return (
-    <p>Number of exercises {total}</p>
-  )
-}
+// const Total = (props) => {
+//   let total = 0
+//   props.course.parts.forEach(part => total += part.exercises)
+//   return (
+//     <p>Number of exercises {total}</p>
+//   )
+// }
 
-const Part = (props) => {
+const Part = ({ name, exercises }) => {
   return (
-    <p>{props.part.name} {props.part.exercises}</p>
+    <p>{name} {exercises}</p>
   )
 }
 
