@@ -64,35 +64,44 @@ const Statistics = (props) => {
   }
 
   return (
-    <div>
-      <StatisticLine
-      statText={'good'}
-      value={good}
-      />
-      <StatisticLine
-        statText={'neutral'}
-        value={neutral}
-      />
-      <StatisticLine
-        statText={'bad'}
-        value={bad}
-      />
-      <StatisticLine
-        statText={'all'}
-        value={total}
-      />
-      <StatisticLine
-        statText={'average'}
-        value={CalculateAverage()}
-      />
-      <StatisticLine
-        statText={'positive'}
-        value={CalculatePositivePercent()}
-      />
-    </div>
+    <table>
+      <tbody>
+        <StatisticLine
+        statText={'good'}
+        value={good}
+        />
+        <StatisticLine
+          statText={'neutral'}
+          value={neutral}
+        />
+        <StatisticLine
+          statText={'bad'}
+          value={bad}
+        />
+        <StatisticLine
+          statText={'all'}
+          value={total}
+        />
+        <StatisticLine
+          statText={'average'}
+          value={CalculateAverage()}
+        />
+        <StatisticLine
+          statText={'positive'}
+          value={CalculatePositivePercent()}
+        />
+      </tbody>
+    </table>
   )
 }
 
-const StatisticLine = ({ statText, value }) => <p>{statText} {value}</p>
+const StatisticLine = ({ statText, value }) => {
+  return (
+    <tr>
+      <td>{statText}</td>
+      <td>{value}</td>
+    </tr>
+  )
+}
 
 export default App;
