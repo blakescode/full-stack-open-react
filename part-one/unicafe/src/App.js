@@ -37,30 +37,39 @@ const App = () => {
         text='bad'
       />
       <h1>statistics</h1>
-      <Stats
-        statText={'good'}
-        value={good}
-      />
-      <Stats
-        statText={'neutral'}
-        value={neutral}
-      />
-      <Stats
-        statText={'bad'}
-        value={bad}
-      />
-      <Stats
-        statText={'all'}
-        value={TotalClicks()}
-      />
-      <Stats
-        statText={'average'}
-        value={CalculateAverage()}
-      />
-      <Stats
-        statText={'positive'}
-        value={CalculatePositivePercent()}
-      />
+      {TotalClicks() === 0 &&
+        <>
+          <p>No feedback given</p>
+        </>
+      }
+      {TotalClicks() > 0 &&
+        <>
+          <Stats
+            statText={'good'}
+            value={good}
+          />
+          <Stats
+            statText={'neutral'}
+            value={neutral}
+          />
+          <Stats
+            statText={'bad'}
+            value={bad}
+          />
+          <Stats
+            statText={'all'}
+            value={TotalClicks()}
+          />
+          <Stats
+            statText={'average'}
+            value={CalculateAverage()}
+          />
+          <Stats
+            statText={'positive'}
+            value={CalculatePositivePercent()}
+          />
+        </>
+      }
     </div>
   );
 }
