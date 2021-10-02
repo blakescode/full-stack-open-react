@@ -10,17 +10,6 @@ const App = () => {
     return good + neutral + bad
   }
 
-  const CalculateAverage = () => {
-    const total = TotalClicks()
-    return (good - bad) / total || 0
-  }
-
-  const CalculatePositivePercent = () => {
-    const total = TotalClicks()
-    const value = (good / total) * 100 || 0
-    return value + '%'
-  }
-
   return (
     <div>
       <h1>give feedback</h1>
@@ -44,29 +33,11 @@ const App = () => {
       }
       {TotalClicks() > 0 &&
         <>
-          <Stats
-            statText={'good'}
-            value={good}
-          />
-          <Stats
-            statText={'neutral'}
-            value={neutral}
-          />
-          <Stats
-            statText={'bad'}
-            value={bad}
-          />
-          <Stats
-            statText={'all'}
-            value={TotalClicks()}
-          />
-          <Stats
-            statText={'average'}
-            value={CalculateAverage()}
-          />
-          <Stats
-            statText={'positive'}
-            value={CalculatePositivePercent()}
+          <Statistics 
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={TotalClicks()}
           />
         </>
       }
@@ -80,7 +51,48 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
-const Stats = ({ statText, value }) => <p>{statText} {value}</p>
+const Statistics = (props) => {
+  const { good, bad, neutral, total } = props
 
+  const CalculateAverage = () => {
+    return (good - bad) / total || 0
+  }
+
+  const CalculatePositivePercent = () => {
+    const value = (good / total) * 100 || 0
+    return value + '%'
+  }
+
+  return (
+    <div>
+      <StatisticLine
+      statText={'good'}
+      value={good}
+      />
+      <StatisticLine
+        statText={'neutral'}
+        value={neutral}
+      />
+      <StatisticLine
+        statText={'bad'}
+        value={bad}
+      />
+      <StatisticLine
+        statText={'all'}
+        value={total}
+      />
+      <StatisticLine
+        statText={'average'}
+        value={CalculateAverage()}
+      />
+      <StatisticLine
+        statText={'positive'}
+        value={CalculatePositivePercent()}
+      />
+    </div>
+  )
+}
+
+const StatisticLine = ({ statText, value }) => <p>{statText} {value}</p>
 
 export default App;
