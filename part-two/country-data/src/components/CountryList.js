@@ -1,8 +1,8 @@
 import React from 'react'
 import CountryDetails from './CountryDetails'
+import CountryNames from './CountryNames'
 
 const CountryList = ({ countries }) => {
-  console.log(countries)
   let tooManyMatches = countries.length > 10
   let moreThanOne = countries.length < 10 && countries.length > 1
   let justRight = countries.length === 1
@@ -12,17 +12,11 @@ const CountryList = ({ countries }) => {
     )
   } else if (moreThanOne) {
     return (
-      <ul>
-        {countries.map(country => {
-          return (
-            <li key={country.name}>{country.name}</li>
-          )
-        })}
-      </ul>
+      <CountryNames countries={countries} />
     )
   } else if (justRight) {
     return (
-      <CountryDetails country={countries[0]}/>
+      <CountryDetails country={countries[0]} />
     )
   } else {
     return (
