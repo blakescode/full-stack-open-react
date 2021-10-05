@@ -10,7 +10,8 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
-  const [ newNotification, setNewNotification ] = useState(null)
+  const [ newSuccessMessage, setNewSuccessMessage ] = useState(null)
+  const [ newErrorMessage, setNewErrorMessage ] = useState(null)
 
   useEffect(() => {
     contactService
@@ -45,11 +46,11 @@ const App = () => {
         .create(newPersonObject)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
-          setNewNotification(
+          setNewSuccessMessage(
             `Added ${returnedPerson.name}`
           )
           setTimeout(() => {
-            setNewNotification(null)
+            setNewSuccessMessage(null)
           }, 5000)
         })
     }
@@ -64,6 +65,14 @@ const App = () => {
         .remove(id)
         .then(reponse => {
           setPersons(persons.filter(person => person.id !== id))
+        })
+        .catch(error => {
+          setNewErrorMessage(
+            `Information for ${personToRemove.name} has already been removed from the server.`
+          )
+          setTimeout(() => {
+            setNewErrorMessage(null)
+          }, 5000)
         })
     }
   }
@@ -98,7 +107,8 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={newNotification} className={'success'} />
+      <Notification message={newSuccessMessage} className={'success'} />
+      <Notification message={newErrorMessage} className={'error'} />
 
       <Filter 
         filter={newFilter}
