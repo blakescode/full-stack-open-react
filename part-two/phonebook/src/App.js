@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PersonForm from './components/PersonForm'
-import Persons from './components/Persons'
+import Person from './components/Person'
 import Filter from './components/Filter'
 import contactService from './services/contacts'
 
@@ -35,6 +35,17 @@ const App = () => {
     }
 
     resetInputs()
+  }
+
+  const removePerson = id => {
+    const personToRemove = persons.find(person => person.id === id)
+    if (window.confirm(`Delete ${personToRemove.name} ?`)) {
+      contactService
+        .remove(id)
+        .then(reponse => {
+          setPersons(persons.filter(person => person.id !== id))
+        })
+    }
   }
 
   const handleNameChange = (event) => {
@@ -87,7 +98,15 @@ const App = () => {
 
       <h2>Numbers</h2>
 
-      <Persons persons={peopleToShow()}/>
+      <ul>
+        {peopleToShow().map(person => 
+          <Person 
+            key={person.id}
+            person={person}
+            deleteFunc={() => removePerson(person.id)} 
+          />
+        )}
+      </ul>
     </div>
   )
 }

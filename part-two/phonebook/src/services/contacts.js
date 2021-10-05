@@ -16,5 +16,10 @@ const update = (id, newObject) => {
   return request.then(response => response.data)
 }
 
-const exportedFunctions = { getAll, create, update }
+const remove = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`)
+  return request.then(response => response.data)
+}
+
+const exportedFunctions = { getAll, create, update, remove }
 export default exportedFunctions
