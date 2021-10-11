@@ -41,6 +41,10 @@ const App = () => {
           })
           setPersons(updatedPersons)
         })
+        .catch(error => {
+          setNewErrorMessage(error.response.data.error.toString())
+          console.log(error.response.data.error)
+        })
     } else {
       contactService
         .create(newPersonObject)
@@ -52,6 +56,10 @@ const App = () => {
           setTimeout(() => {
             setNewSuccessMessage(null)
           }, 5000)
+        })
+        .catch(error => {
+          setNewErrorMessage(error.response.data.error.toString())
+          console.log(error.response.data.error)
         })
     }
 
